@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:property-placeholder location="classpath:config.properties" />
+	
+	<bean id="helloWorld" class="com.ais.presentation.HelloWorld">
+		<property name="hello" value="Hola Mundo!"></property>
+	</bean>
+	
+	<bean id="helloWorldConst" class="com.ais.presentation.HelloWorld">
+		<constructor-arg index="0" value="Hola Mundo From Constructor!"
+		type="java.lang.String"/>
+	</bean>
+	
+	
+	<bean id="student" class="com.ais.entity.Student">
+		<property name="idStudent" value="${Student.idStudent}" />
+		<property name="name" value="${Student.name}" />
+		<property name="surname" value="${Student.surname}" />
+		<property name="age" value="${Student.age}" />
+		<property name="address">
+			<ref bean="address" />
+		</property>
+	</bean>
+	
+	<bean id="address" class="com.ais.entity.Address">
+		<constructor-arg index="0" value="${Address.idAddress}" />
+		<constructor-arg index="1" value="${Address.street}" type="java.lang.String" />
+	</bean>
+	
+	<!-- Student #3 -->
+	<bean id="david3Student" class="com.ais.entity.listas.Student">
+		<property name="idStudent" value="1" />
+		<property name="name" value="David" />
+		<property name="surname" value="Soto" />
+		<property name="age" value="24" />
+		<property name="listTeacher">
+			<list>
+				<bean class="com.ais.entity.listas.Teacher">
+					<property name="idTeacher" value="1" />
+					<property name="name" value="Jordi" />
+				</bean>
+				<bean class="com.ais.entity.listas.Teacher">
+					<property name="idTeacher" value="2" />
+					<property name="name" value="Pepe" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>
